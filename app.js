@@ -7,6 +7,8 @@ const connectDB = require('./config/db');
 const contactRoutes = require('./routes/contactRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const errorMiddleware = require('./middleware/errorMiddleware');
+const swaggerUi = require('swagger-ui-express'); // Import swagger UI
+const swaggerDocument = require('./swagger.json'); // Import the swagger.json file
 require('dotenv').config();
 
 dotenv.config();
@@ -26,6 +28,9 @@ const limiter = rateLimit({
     message: 'Too many requests, please try again later.',
 });
 app.use(limiter);
+
+// Serve Swagger UI at /api-docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Use routes
 app.use(contactRoutes);
