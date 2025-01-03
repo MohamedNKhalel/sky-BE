@@ -7,6 +7,7 @@ const connectDB = require('./config/db');
 const contactRoutes = require('./routes/contactRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const errorMiddleware = require('./middleware/errorMiddleware');
+require('dotenv').config();
 
 dotenv.config();
 
