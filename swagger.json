@@ -1,0 +1,247 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Sky Builders Backend API",
+      "description": "API documentation for the Sky Builders project"
+    },
+    "host": "your-render-app-url.onrender.com",
+    "basePath": "/",
+    "schemes": [
+      "https",
+      "http"
+    ],
+    "paths": {
+      "/contact": {
+        "post": {
+          "summary": "Add a new contact",
+          "description": "Create a new contact with name, email, phone, and description.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Contact object to add",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "phone": { "type": "string" },
+                  "description": { "type": "string" }
+                },
+                "required": ["name", "email", "phone", "description"]
+              }
+            }
+          ],
+          "responses": {
+            "201": { "description": "Contact created successfully" },
+            "400": { "description": "Validation error" }
+          }
+        },
+        "get": {
+          "summary": "Get all contacts",
+          "description": "Retrieve all contacts (Authentication required).",
+          "responses": {
+            "200": { "description": "List of contacts" },
+            "403": { "description": "Access denied" }
+          },
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ]
+        }
+      },
+      "/contact/{id}": {
+        "put": {
+          "summary": "Update a contact",
+          "description": "Update contact details by ID (Authentication required).",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "integer",
+              "description": "Contact ID"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "phone": { "type": "string" },
+                  "description": { "type": "string" }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": { "description": "Contact updated successfully" },
+            "404": { "description": "Contact not found" }
+          },
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ]
+        },
+        "delete": {
+          "summary": "Delete a contact",
+          "description": "Delete a contact by ID (Authentication required).",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "integer",
+              "description": "Contact ID"
+            }
+          ],
+          "responses": {
+            "200": { "description": "Contact deleted successfully" },
+            "404": { "description": "Contact not found" }
+          },
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ]
+        }
+      },
+      "/project": {
+        "post": {
+          "summary": "Add a new project",
+          "description": "Create a new project with an image (Authentication required).",
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "in": "formData",
+              "name": "description",
+              "type": "string",
+              "required": true
+            },
+            {
+              "in": "formData",
+              "name": "date",
+              "type": "string",
+              "required": true
+            },
+            {
+              "in": "formData",
+              "name": "image",
+              "type": "file",
+              "required": true,
+              "description": "Image file"
+            }
+          ],
+          "responses": {
+            "201": { "description": "Project created successfully" },
+            "400": { "description": "Validation error or missing fields" }
+          },
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ]
+        },
+        "get": {
+          "summary": "Get all projects",
+          "description": "Retrieve all projects (Authentication required).",
+          "responses": {
+            "200": { "description": "List of projects" },
+            "403": { "description": "Access denied" }
+          },
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ]
+        }
+      },
+      "/project/{id}": {
+        "put": {
+          "summary": "Update a project",
+          "description": "Update project details by ID, including image (Authentication required).",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "integer",
+              "description": "Project ID"
+            },
+            {
+              "in": "formData",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "in": "formData",
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "in": "formData",
+              "name": "date",
+              "type": "string"
+            },
+            {
+              "in": "formData",
+              "name": "image",
+              "type": "file",
+              "description": "Image file"
+            }
+          ],
+          "responses": {
+            "200": { "description": "Project updated successfully" },
+            "404": { "description": "Project not found" }
+          },
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ]
+        },
+        "delete": {
+          "summary": "Delete a project",
+          "description": "Delete a project by ID (Authentication required).",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "integer",
+              "description": "Project ID"
+            }
+          ],
+          "responses": {
+            "200": { "description": "Project deleted successfully" },
+            "404": { "description": "Project not found" }
+          },
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ]
+        }
+      }
+    },
+    "securityDefinitions": {
+      "BearerAuth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  }
+  
